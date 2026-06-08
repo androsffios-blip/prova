@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Il mio sito su GitHub</title>
+  <meta name="description" content="Sito personale hostato su GitHub Pages." />
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --card: #020617;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(
+        to right,
+        rgba(56, 189, 248, 0.08),
+        transparent
+      );
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .nav-logo span.icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0, #38bdf8 0, #0f172a 40%);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 12px 30px rgba(15, 23, 42, 0.9);
+      font-size: 0.7rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      border-color: rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links a.primary {
+      border-color: rgba(56, 189, 248, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 10px 25px rgba(15, 23, 42, 0.9);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 2.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span.accent {
+      background: linear-gradient(to right, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      border-color: rgba(56, 189, 248, 0.7);
+      background: radial-gradient(circle at 0 0, #38bdf8 0, #0f172a 45%);
+      color: #e0f2fe;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 14px 35px rgba(15, 23, 42, 0.95);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .btn-primary:hover {
+      border-color: rgba(56, 189, 248, 0.9);
+      filter: brightness(1.05);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hero-meta span::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
+    }
+
+    .hero-card {
+      border-radius: 1.25rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background:
+        radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.18), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(168, 85, 247, 0.18), transparent 55%),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.95), #020617);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.95);
+      padding: 1.4rem 1.4rem 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-card-header span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      color: #cbd5f5;
+    }
+
+    .hero-card-header span.status {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e0f2fe;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .hero-card-header span.status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    }
+
+    .hero-card-main {
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-card-title {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-card-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-card-item {
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .hero-card-item-label {
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .hero-card-item-value {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .hero-card-footer span.tag {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: #cbd5f5;
+    }
+
+    .hero-card-orbit {
+      position: absolute;
+      inset: -40%;
+      opacity: 0.18;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.9) 0, transparent 55%),
+        radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.4) 0, transparent 30%);
+      mix-blend-mode: screen;
+    }
+
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 26rem;
+    }
+
+    .section-pill {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      border-radius: 1rem;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.12), transparent 55%),
+        rgba(15, 23, 42, 0.95);
+      padding: 1rem;
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .card-title {
+      font-weight: 500;
+    }
+
+    .card-body {
+      color: var(--muted);
+    }
+
+    .card-meta {
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .badge {
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.75rem;
+      color: #cbd5f5;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-alt);
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding-top: 2.5rem;
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="nav-logo">
+        <span class="icon">GH</span>
+        <span>GitHub Site</span>
+      </div>
+      <div class="nav-links">
+        <a href="#about">Chi sono</a>
+        <a href="#projects">Progetti</a>
+        <a href="#contact" class="primary">Contatti</a>
+      </div>
+    </nav>
+  </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1 class="hero-title">
+            Un sito minimale per il tuo
+            <span class="accent">profilo GitHub</span>
+          </h1>
+          <p class="hero-subtitle">
+            Questa è una landing page moderna, pensata per presentare te, i tuoi progetti
+            e i link principali. Puoi modificarla facilmente e pubblicarla su GitHub Pages.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="scrollToSection('projects')">
+              <span>Guarda i progetti</span>
+              <span>↗</span>
+            </button>
+            <button class="btn" onclick="scrollToSection('contact')">
+              <span>Contattami</span>
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <span>Ottimizzato per GitHub Pages</span>
+            <span>Design dark, responsive</span>
+            <span>Solo HTML + CSS + JS</span>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Panoramica profilo">
+          <div class="hero-card-orbit"></div>
+
+          <div class="hero-card-header">
+            <span class="label">Profilo</span>
+            <span class="status">
+              <span class="status-dot"></span>
+              Online
+            </span>
+          </div>
+
+          <div class="hero-card-main">
+            <div class="hero-card-title">Il tuo spazio su GitHub</div>
+            <div class="hero-card-subtitle">
+              Personalizza questi dati con il tuo nome, ruolo e link reali.
+            </div>
+          </div>
+
+          <div class="hero-card-grid">
+            <div class="hero-card-item">
+              <div class="hero-card-item-label">Nome</div>
+              <div class="hero-card-item-value" id="card-name">Il tuo nome</div>
+            </div>
+            <div class="hero-card-item">
+              <div class="hero-card-item-label">Ruolo</div>
+              <div class="hero-card-item-value" id="card-role">Developer / Designer</div>
+            </div>
+            <div class="hero-card-item">
+              <div class="hero-card-item-label">Progetti</div>
+              <div class="hero-card-item-value" id="card-projects">3 attivi</div>
+            </div>
+          </div>
+
+          <div class="hero-card-footer">
+            <span>Ultimo aggiornamento: <span id="card-updated">oggi</span></span>
+            <span class="tag">GitHub Ready</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="about">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Chi sono</h2>
+            <p class="section-subtitle">
+              Una breve descrizione su di te, le tue competenze e cosa ti piace costruire.
+              Modifica questo testo per raccontare la tua storia.
+            </p>
+          </div>
+          <div class="section-pill">Profilo personale</div>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-title">Competenze principali</div>
+            <div class="card-body">
+              Scrivi qui le tecnologie che usi di più: ad esempio JavaScript, Python,
+              React, UI design, ecc.
+            </div>
+            <div class="card-meta">
+              <span>Tech stack</span>
+              <span class="badge">Aggiorna liberamente</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Obiettivi</div>
+            <div class="card-body">
+              Descrivi cosa vuoi costruire o imparare nei prossimi mesi: progetti open
+              source, portfolio, nuove skill.
+            </div>
+            <div class="card-meta">
+              <span>Roadmap personale</span>
+              <span class="badge">Work in progress</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Stile di lavoro</div>
+            <div class="card-body">
+              Racconta come ti piace lavorare: collaborazione, sperimentazione, cura dei
+              dettagli, ecc.
+            </div>
+            <div class="card-meta">
+              <span>Modo di lavorare</span>
+              <span class="badge">Personalizzabile</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Progetti</h2>
+            <p class="section-subtitle">
+              Aggiungi qui i tuoi repository principali, demo live o qualsiasi progetto
+              che vuoi mettere in evidenza.
+            </p>
+          </div>
+          <div class="section-pill">Showcase</div>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-title">Progetto 1 – Nome repo</div>
+            <div class="card-body">
+              Breve descrizione del progetto: cosa fa, quali tecnologie usa, perché è
+              interessante.
+            </div>
+            <div class="card-meta">
+              <a href="https://github.com/tuo-username/tuo-repo" target="_blank" rel="noopener">
+                Vai al repository
+              </a>
+              <span class="badge">Open source</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Progetto 2 – Nome repo</div>
+            <div class="card-body">
+              Un altro progetto che vuoi mostrare. Può essere una libreria, un sito,
+              un tool personale.
+            </div>
+            <div class="card-meta">
+              <a href="https://github.com/tuo-username/altro-repo" target="_blank" rel="noopener">
+                Vai al repository
+              </a>
+              <span class="badge">In sviluppo</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Progetto 3 – Demo</div>
+            <div class="card-body">
+              Se hai una demo live (GitHub Pages, Vercel, ecc.), inserisci qui il link
+              e una descrizione.
+            </div>
+            <div class="card-meta">
+              <a href="https://tuo-sito-demo.example" target="_blank" rel="noopener">
+                Apri la demo
+              </a>
+              <span class="badge">Live</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Contatti</h2>
+            <p class="section-subtitle">
+              Inserisci i tuoi contatti principali: email, profilo GitHub, LinkedIn o
+              altri social che usi per lavoro.
+            </p>
+          </div>
+          <div class="section-pill">Resta in contatto</div>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-title">Email</div>
+            <div class="card-body">
+              <a href="mailto:tuo-indirizzo@example.com">tuo-indirizzo@example.com</a>
+            </div>
+            <div class="card-meta">
+              <span>Preferisci un contatto diretto?</span>
+              <span class="badge">Rispondi quando vuoi</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">GitHub</div>
+            <div class="card-body">
+              <a href="https://github.com/tuo-username" target="_blank" rel="noopener">
+                github.com/tuo-username
+              </a>
+            </div>
+            <div class="card-meta">
+              <span>Profilo principale</span>
+              <span class="badge">Code & projects</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">LinkedIn</div>
+            <div class="card-body">
+              <a href="https://www.linkedin.com/in/tuo-username" target="_blank" rel="noopener">
+                linkedin.com/in/tuo-username
+              </a>
+            </div>
+            <div class="card-meta">
+              <span>Networking</span>
+              <span class="badge">Professional</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Il tuo nome – Sito hostato su GitHub Pages</span>
+      <div class="footer-links">
+        <a href="#about">Chi sono</a>
+        <a href="#projects">Progetti</a>
+        <a href="#contact">Contatti</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
